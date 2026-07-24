@@ -13,7 +13,22 @@ import { WishlistService } from '../../../core/services/wishlist.service';
   standalone: true,
   imports: [CurrencyPipe],
   template: `
-    @if (product(); as p) {
+    @if (loading()) {
+      <div class="detail-loading">
+        <div class="skeleton skeleton--back"></div>
+        <div class="detail-loading__layout">
+          <div class="skeleton skeleton--image"></div>
+          <div class="detail-loading__info">
+            <div class="skeleton skeleton--category"></div>
+            <div class="skeleton skeleton--title"></div>
+            <div class="skeleton skeleton--price"></div>
+            <div class="skeleton skeleton--rating"></div>
+            <div class="skeleton skeleton--desc"></div>
+            <div class="skeleton skeleton--desc"></div>
+          </div>
+        </div>
+      </div>
+    } @else if (product(); as p) {
       <article class="detail">
         <button class="detail__back" (click)="goBack()">← Back</button>
         <div class="detail__layout">
@@ -184,11 +199,67 @@ import { WishlistService } from '../../../core/services/wishlist.service';
       color: var(--color-error);
     }
 
+    /* Skeleton loading */
+    .detail-loading {
+      padding-bottom: var(--space-2xl);
+    }
+    .detail-loading__layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2xl);
+    }
+    .detail-loading__info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .skeleton {
+      background: var(--color-border);
+      border-radius: var(--radius-sm);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    .skeleton--back {
+      height: 20px;
+      width: 60px;
+      margin-bottom: var(--space-lg);
+    }
+    .skeleton--image {
+      min-height: 400px;
+      border-radius: var(--radius-lg);
+      background: var(--color-surface);
+    }
+    .skeleton--category {
+      height: 14px;
+      width: 100px;
+    }
+    .skeleton--title {
+      height: 32px;
+      width: 80%;
+    }
+    .skeleton--price {
+      height: 40px;
+      width: 120px;
+    }
+    .skeleton--rating {
+      height: 20px;
+      width: 180px;
+    }
+    .skeleton--desc {
+      height: 16px;
+      width: 100%;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
     @media (max-width: 768px) {
-      .detail__layout {
+      .detail__layout,
+      .detail-loading__layout {
         grid-template-columns: 1fr;
       }
-      .detail__image-wrapper {
+      .detail__image-wrapper,
+      .skeleton--image {
         min-height: 280px;
       }
     }
@@ -203,18 +274,22 @@ export class ProductDetailComponent implements OnInit {
   readonly cart = inject(CartService);
   readonly wishlist = inject(WishlistService);
   readonly product = signal<IProduct | null>(null);
+  readonly loading = signal(true);
 
   ngOnInit() {
+    this.loading.set(true);
     this.route.paramMap
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         switchMap((params) => {
           const id = Number(params.get('id'));
+          this.loading.set(true);
           return this.api.getProduct(id);
         })
       )
       .subscribe((data: IProduct) => {
         this.product.set(data);
+        this.loading.set(false);
       });
   }
 
