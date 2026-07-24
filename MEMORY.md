@@ -201,4 +201,18 @@
 
 **Current state**: All feature work correctly split into separate branches with clean PRs. Dev server at http://localhost:4200.
 
-**Next step**: Merge PRs in order (#1 → #2 → … → #7) into main, then proceed with Phase 4 — UX quality (loading states + error handling modal).
+**Next step**: Phase 4 — UX quality (loading states + error handling modal).
+
+### 2026-07-24 — Session 6.1: All PRs merged to main
+
+**What was done**:
+- All 7 PRs merged to main in order (#1 → #7)
+- Conflict resolution for MEMORY.md across all branches via rebase + `--theirs` strategy
+- All feature branches rebased onto latest main to ensure clean, conflict-free PRs
+- Final state: `main` has full feature set through proper PR workflow (B 1a, B 1b)
+
+**Verification**: `ng build` ✔, `ng lint` ✔ on main
+
+**Current state**: All features working on main. Git workflow fully aligned with PDF requirements.
+
+**Next step**: Phase 4 — UX quality (loading states + error handling modal).
