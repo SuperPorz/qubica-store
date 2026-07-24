@@ -35,6 +35,7 @@
 ## AI Tool Usage Log
 
 - 2026-07-24: Scaffolded Angular 21.2 project with strict mode, ESLint (angular-eslint), Playwright/Vitest deps. Build + lint pass.
+- 2026-07-24: Created tokens.css, ApiService, TS interfaces, lazy-loaded routing, basic layout (Header + outlet).
 
 ## Session Log
 
@@ -51,3 +52,22 @@
 **Final state**: Clean Angular 21.2 project in `qubica-store/`. Ready for Session 1.1.
 
 **Next step**: Session 1.1 — CSS design tokens + ApiService + TS interfaces + routing.
+
+### 2026-07-24 — Session 1.1: Core scaffolding
+
+**What was done**:
+- Created `tokens.css` with light/dark theme variables (colors, spacing, typography, shadows, transitions)
+- Created `styles.css` importing tokens + global resets
+- Created `IProduct`, `ICategory`, `ILoginRequest`, `ILoginResponse` interfaces in `core/models/api.interface.ts`
+- Created centralized `ApiService` in `core/api/api.service.ts` with 5 methods (getProducts, getProduct, getCategories, getProductsByCategory, login)
+- Set up app.config.ts with HttpClient (`withFetch`) + Router
+- Created lazy-loaded routes for home, product/:id, cart, wishlist, auth + 404 redirect
+- Created stub components for all 5 feature routes
+- Set up basic app layout (header + router-outlet)
+- Removed default Angular template
+
+**Verification**: `ng build` ✔, `ng lint` ✔
+
+**Final state**: Core scaffolding complete. Header has basic logo only (no dynamic categories yet).
+
+**Next step**: Session 1.2 — Header with dynamic categories + complete layout.
