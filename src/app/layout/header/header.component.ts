@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ApiService } from '../../core/api/api.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -34,7 +35,11 @@ import { ApiService } from '../../core/api/api.service';
         <div class="header__actions">
           <a class="header__link" routerLink="/wishlist">Wishlist</a>
           <a class="header__link" routerLink="/cart">Cart</a>
-          <a class="header__link" routerLink="/auth">Login</a>
+          @if (auth.isAuthenticated()) {
+            <a class="header__link" routerLink="/auth">Logout</a>
+          } @else {
+            <a class="header__link" routerLink="/auth">Login</a>
+          }
         </div>
       </div>
     </header>
@@ -110,6 +115,7 @@ import { ApiService } from '../../core/api/api.service';
 })
 export class HeaderComponent implements OnInit {
   private readonly api = inject(ApiService);
+  readonly auth = inject(AuthService);
   readonly categories = signal<string[]>([]);
 
   ngOnInit() {
