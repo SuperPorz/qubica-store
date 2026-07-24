@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ApiService } from '../../core/api/api.service';
 import { AuthService } from '../../core/services/auth.service';
+import { CartService } from '../../core/services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -34,7 +35,12 @@ import { AuthService } from '../../core/services/auth.service';
 
         <div class="header__actions">
           <a class="header__link" routerLink="/wishlist">Wishlist</a>
-          <a class="header__link" routerLink="/cart">Cart</a>
+          <a class="header__link header__cart" routerLink="/cart">
+            Cart
+            @if (cart.totalItems()) {
+              <span class="header__cart-badge">{{ cart.totalItems() }}</span>
+            }
+          </a>
           @if (auth.isAuthenticated()) {
             <a class="header__link" routerLink="/auth">Logout</a>
           } @else {
@@ -101,6 +107,7 @@ import { AuthService } from '../../core/services/auth.service';
         background-color var(--transition-fast);
       text-decoration: none;
       text-transform: capitalize;
+      position: relative;
     }
     .header__link:hover {
       color: var(--color-text-primary);
@@ -111,16 +118,38 @@ import { AuthService } from '../../core/services/auth.service';
       color: var(--color-primary);
       background: var(--color-primary-light);
     }
+    .header__cart {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .header__cart-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 5px;
+      background: var(--color-primary);
+      color: var(--color-primary-text);
+      font-size: 11px;
+      font-weight: var(--font-weight-bold);
+      border-radius: var(--radius-full);
+      line-height: 1;
+    }
   `,
 })
 export class HeaderComponent implements OnInit {
   private readonly api = inject(ApiService);
   readonly auth = inject(AuthService);
+  readonly cart = inject(CartService);
   readonly categories = signal<string[]>([]);
 
   ngOnInit() {
     this.api.getCategories().subscribe((cats) => {
-      this.categories.set(cats.map((c) => (typeof c === 'string' ? c : c.name)));
+      this.categories.set(
+        cats.map((c) => (typeof c === 'string' ? c : c.name))
+      );
     });
   }
 }

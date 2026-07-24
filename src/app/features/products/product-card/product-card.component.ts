@@ -1,7 +1,8 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { IProduct } from '../../../core/models/api.interface';
+import { WishlistService } from '../../../core/services/wishlist.service';
 
 @Component({
   selector: 'app-product-card',
@@ -21,6 +22,12 @@ import { IProduct } from '../../../core/models/api.interface';
         <h3 class="card__title">{{ product().title }}</h3>
         <p class="card__price">{{ product().price | currency }}</p>
       </div>
+      <button
+        class="card__wishlist"
+        [class.card__wishlist--active]="isWishlisted()"
+        (click)="toggleWishlist($event)"
+        [attr.aria-label]="isWishlisted() ? 'Remove from wishlist' : 'Add to wishlist'"
+      >♡</button>
     </a>
   `,
   styles: `
@@ -33,6 +40,7 @@ import { IProduct } from '../../../core/models/api.interface';
       overflow: hidden;
       text-decoration: none;
       color: inherit;
+      position: relative;
       transition:
         transform var(--transition-fast),
         box-shadow var(--transition-fast);
@@ -78,8 +86,45 @@ import { IProduct } from '../../../core/models/api.interface';
       color: var(--color-primary);
       margin-top: auto;
     }
+    .card__wishlist {
+      position: absolute;
+      top: var(--space-sm);
+      right: var(--space-sm);
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow-sm);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+      color: var(--color-text-secondary);
+      line-height: 1;
+      z-index: 2;
+    }
+    .card__wishlist:hover {
+      transform: scale(1.15);
+    }
+    .card__wishlist--active {
+      color: var(--color-error);
+    }
   `,
 })
 export class ProductCardComponent {
   readonly product = input.required<IProduct>();
+  private readonly wishlist = inject(WishlistService);
+
+  isWishlisted() {
+    return this.wishlist.isWishlisted(this.product().id);
+  }
+
+  toggleWishlist(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.wishlist.toggle(this.product().id);
+  }
 }
