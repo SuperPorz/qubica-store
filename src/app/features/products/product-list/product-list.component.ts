@@ -15,11 +15,26 @@ import { ProductCardComponent } from '../product-card/product-card.component';
       <h2 class="products__heading">
         {{ activeCategory() || 'All' }} Products
       </h2>
-      <div class="products__grid">
-        @for (product of products(); track product.id) {
-          <app-product-card [product]="product" />
-        }
-      </div>
+
+      @if (loading()) {
+        <div class="products__loading">
+          <div class="skeleton-grid">
+            @for (_ of [1,2,3,4,5,6]; track _) {
+              <div class="skeleton-card">
+                <div class="skeleton skeleton--image"></div>
+                <div class="skeleton skeleton--title"></div>
+                <div class="skeleton skeleton--price"></div>
+              </div>
+            }
+          </div>
+        </div>
+      } @else {
+        <div class="products__grid">
+          @for (product of products(); track product.id) {
+            <app-product-card [product]="product" />
+          }
+        </div>
+      }
     </section>
   `,
   styles: `
@@ -38,6 +53,43 @@ import { ProductCardComponent } from '../product-card/product-card.component';
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: var(--space-lg);
     }
+    .products__loading {
+      padding: var(--space-lg) 0;
+    }
+    .skeleton-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: var(--space-lg);
+    }
+    .skeleton-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .skeleton {
+      background: var(--color-border);
+      border-radius: var(--radius-sm);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    .skeleton--image {
+      height: 220px;
+      margin: var(--space-lg);
+      border-radius: var(--radius-md);
+    }
+    .skeleton--title {
+      height: 16px;
+      margin: var(--space-md) var(--space-md) var(--space-xs);
+    }
+    .skeleton--price {
+      height: 24px;
+      width: 80px;
+      margin: var(--space-xs) var(--space-md) var(--space-md);
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
   `,
 })
 export class ProductListComponent implements OnInit {
@@ -46,14 +98,17 @@ export class ProductListComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   readonly products = signal<IProduct[]>([]);
   readonly activeCategory = signal('');
+  readonly loading = signal(true);
 
   ngOnInit() {
+    this.loading.set(true);
     this.route.queryParamMap
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         switchMap((params) => {
           const cat = params.get('category') ?? '';
           this.activeCategory.set(cat);
+          this.loading.set(true);
           return cat
             ? this.api.getProductsByCategory(cat)
             : this.api.getProducts();
@@ -61,6 +116,7 @@ export class ProductListComponent implements OnInit {
       )
       .subscribe((data: IProduct[]) => {
         this.products.set(data);
+        this.loading.set(false);
       });
   }
 }

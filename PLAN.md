@@ -31,8 +31,8 @@
 | B 2d | 1-2 unit tests (Vitest) | ☐ |
 | B 2e | State management (Angular Signals) | ✅ |
 | B 3a | Smooth transitions/animations between views — 🔴 needs human review | ☐ |
-| B 3b | Loading states (spinner/skeleton) | ☐ |
-| B 3c | Error handling modal | ☐ |
+| B 3b | Loading states (spinner/skeleton) | ✅ |
+| B 3c | Error handling modal | ✅ |
 | B 3d | Light/dark theme toggle — 🔴 needs human review | ☐ |
 | B 3e | Add to cart button + counter in Header | ✅ |
 | B 3f | Login/logout via dedicated API | ✅ |
@@ -56,31 +56,31 @@
 - [x] Base routing with lazy-loaded feature routes — [AC 2a]
 
 ### Session 1.2 — Layout
-- [ ] Header: store name, textual logo, category nav from API — [AC 3a, 3b]
-- [ ] Global layout: Header + Main + router-outlet — [AC 2a]
+- [x] Header: store name, textual logo, category nav from API — [AC 3a, 3b]
+- [x] Global layout: Header + Main + router-outlet — [AC 2a]
 
 ### Session 2.1 — Product grid
-- [ ] Home: product grid from API (image, name, price) — [AC 4a]
-- [ ] Clickable card → navigates to detail view — [AC 4b]
+- [x] Home: product grid from API (image, name, price) — [AC 4a]
+- [x] Clickable card → navigates to detail view — [AC 4b]
 
 ### Session 2.2 — Category filter & deep-link
-- [ ] Category filter from Header, updates URL (query string) — [AC 4c, 4d]
-- [ ] Deep-link: correct init from direct URL / refresh — [AC 4d]
+- [x] Category filter from Header, updates URL (query string) — [AC 4c, 4d]
+- [x] Deep-link: correct init from direct URL / refresh — [AC 4d]
 
 ### Session 2.3 — Product detail
-- [ ] Product view: name, image, price, full description — [AC 5a]
+- [x] Product view: name, image, price, full description — [AC 5a]
 
 ### Session 3.1 — Auth
-- [ ] Login/logout via Fake Store API — [B 3f]
-- [ ] Route guard for Cart/Wishlist
+- [x] Login/logout via Fake Store API — [B 3f]
+- [x] Route guard for Cart/Wishlist
 
 ### Session 3.2 — Cart & Wishlist
-- [ ] Add to cart + counter in Header (Signals) — [B 3e]
-- [ ] Wishlist (protected feature)
+- [x] Add to cart + counter in Header (Signals) — [B 3e]
+- [x] Wishlist (protected feature)
 
 ### Session 4.1 — UX quality
-- [ ] Loading states (skeleton/spinner) — [B 3b]
-- [ ] Error handling: "something went wrong" modal — [B 3c]
+- [x] Loading states (skeleton/spinner) — [B 3b]
+- [x] Error handling: "something went wrong" modal — [B 3c]
 
 ### Session 4.2 — Theme & animations
 - [ ] Light/dark theme toggle — [B 3d] — 🔴 needs human review
@@ -98,8 +98,8 @@
 ### Session 6.1 — Git workflow
 - [x] Retroactively created 7 feature branches with PRs (#1–#7) from `feat/core-scaffolding` history
 - [x] Deleted superseded `feat/core-scaffolding` branch
-- [ ] Merge all PRs in order (#1 → #2 → #3 → #4 → #5 → #6 → #7) — waits user confirmation
-- [ ] Verify every feature went through a branch + PR — [B 1a, B 1b]
+- [x] All 7 PRs merged to main in order (#1 → #7)
+- [x] Verify every feature went through a branch + PR — [B 1a, B 1b]
 - [ ] Clean up commit history if needed — [AC 1b]
 
 ### Session 7.1 — Documentation

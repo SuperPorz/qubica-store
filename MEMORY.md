@@ -216,3 +216,30 @@
 **Current state**: All features working on main. Git workflow fully aligned with PDF requirements.
 
 **Next step**: Phase 4 — UX quality (loading states + error handling modal).
+
+### 2026-07-24 — Session 4.1: Loading states + Error modal
+
+**What was done**:
+- Created `LoadingService`: tracks loading state per request key, exposes `isLoading` signal
+- Created `ErrorService`: simple signal-based error state with show/dismiss
+- Created `apiInterceptor` (HTTP interceptor):
+  - Automatically starts/stops loading via `LoadingService`
+  - Catches HTTP errors and shows modal via `ErrorService`
+  - Network errors, 404, and generic errors handled
+- Created `SpinnerComponent`: global spinner with CSS animation
+- Created `ErrorModalComponent`:
+  - Accessible modal with keyboard support (Escape to dismiss)
+  - Click overlay to dismiss
+  - Semantic HTML with role="dialog" and aria attributes
+- Updated `ProductListComponent`:
+  - Skeleton loading grid (6 skeleton cards) while fetching
+- Updated `ProductDetailComponent`:
+  - Skeleton layout (image + text placeholders) while fetching
+- Registered interceptor in `app.config.ts` with `withInterceptors`
+- Added `<app-error-modal />` to root layout
+
+**Verification**: `ng build` ✔, `ng lint` ✔
+
+**Current state**: Loading skeletons on product list and detail. Error modal on API failures.
+
+**Next step**: Session 4.2 — Theme toggle + animations (🔴 needs human review).
