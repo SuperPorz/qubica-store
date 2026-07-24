@@ -86,11 +86,20 @@ A subtask is complete ONLY if:
 
 ## 7. Git/PR conventions
 
-- One branch per feature: `feat/xxx`.
-- Conventional Commits: `feat:`, `fix:`, `test:`, `docs:`, `chore:`.
-- PRs via `gh pr create` with description covering AC/Bonus references and verification steps.
-- No automatic merge without explicit user confirmation.
-- Never commit directly to `main`.
+- **One branch per feature**: `feat/xxx` (e.g., `feat/product-grid`, `feat/auth`).
+- **Branch from the right base**: create each feature branch from `main` (or from the previous feature branch if features are sequential and not yet merged). This ensures each PR shows only its own diff.
+- **Conventional Commits**: `feat:`, `fix:`, `test:`, `docs:`, `chore:`.
+- **PR workflow**:
+  1. Create feature branch, develop, commit.
+  2. Push branch to origin.
+  3. Create PR via `gh pr create` with:
+     - Clear title following conventional commits.
+     - Description covering: Changes, Verification (build/lint results), Related AC/Bonus references.
+     - Base branch: `main` (or previous feature branch if sequential stack).
+  4. Wait for user review and merge confirmation.
+- **No automatic merge** without explicit user confirmation.
+- **Never commit directly to `main`** — always use branches + PRs.
+- **After PR merge** to `main`, delete the feature branch locally and on remote.
 
 ## 8. AI tool usage log
 
