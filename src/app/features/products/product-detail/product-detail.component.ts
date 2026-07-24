@@ -5,6 +5,8 @@ import { switchMap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from '../../../core/api/api.service';
 import { IProduct } from '../../../core/models/api.interface';
+import { CartService } from '../../../core/services/cart.service';
+import { WishlistService } from '../../../core/services/wishlist.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -16,11 +18,7 @@ import { IProduct } from '../../../core/models/api.interface';
         <button class="detail__back" (click)="goBack()">← Back</button>
         <div class="detail__layout">
           <div class="detail__image-wrapper">
-            <img
-              class="detail__image"
-              [src]="p.image"
-              [alt]="p.title"
-            />
+            <img class="detail__image" [src]="p.image" [alt]="p.title" />
           </div>
           <div class="detail__info">
             <p class="detail__category">{{ p.category }}</p>
@@ -28,10 +26,12 @@ import { IProduct } from '../../../core/models/api.interface';
             <p class="detail__price">{{ p.price | currency }}</p>
             <div class="detail__rating">
               <span class="detail__stars">
-                @for (star of [1,2,3,4,5]; track star) {
-                  <span class="detail__star" [class.detail__star--filled]="star <= Math.round(p.rating.rate)">
-                    ★
-                  </span>
+                @for (star of [1, 2, 3, 4, 5]; track star) {
+                  <span
+                    class="detail__star"
+                    [class.detail__star--filled]="star <= Math.round(p.rating.rate)"
+                    >★</span
+                  >
                 }
               </span>
               <span class="detail__rating-text">
@@ -39,7 +39,18 @@ import { IProduct } from '../../../core/models/api.interface';
               </span>
             </div>
             <p class="detail__description">{{ p.description }}</p>
-            <button class="detail__add-to-cart">Add to Cart</button>
+            <div class="detail__actions">
+              <button class="detail__add-to-cart" (click)="addToCart(p)">
+                Add to Cart
+              </button>
+              <button
+                class="detail__wishlist"
+                [class.detail__wishlist--active]="wishlist.isWishlisted(p.id)"
+                (click)="wishlist.toggle(p.id)"
+              >
+                {{ wishlist.isWishlisted(p.id) ? '♥ Saved' : '♡ Save' }}
+              </button>
+            </div>
           </div>
         </div>
       </article>
@@ -60,6 +71,7 @@ import { IProduct } from '../../../core/models/api.interface';
       font-weight: var(--font-weight-medium);
       padding: var(--space-sm) 0;
       margin-bottom: var(--space-lg);
+      cursor: pointer;
     }
     .detail__back:hover {
       color: var(--color-primary-hover);
@@ -132,10 +144,13 @@ import { IProduct } from '../../../core/models/api.interface';
       line-height: var(--line-height-relaxed);
       color: var(--color-text-secondary);
     }
-    .detail__add-to-cart {
-      display: inline-flex;
+    .detail__actions {
+      display: flex;
+      gap: var(--space-md);
       align-items: center;
-      justify-content: center;
+      margin-top: var(--space-md);
+    }
+    .detail__add-to-cart {
       padding: var(--space-md) var(--space-xl);
       background: var(--color-primary);
       color: var(--color-primary-text);
@@ -145,11 +160,28 @@ import { IProduct } from '../../../core/models/api.interface';
       font-weight: var(--font-weight-semibold);
       cursor: pointer;
       transition: background-color var(--transition-fast);
-      margin-top: var(--space-md);
-      align-self: flex-start;
     }
     .detail__add-to-cart:hover {
       background: var(--color-primary-hover);
+    }
+    .detail__wishlist {
+      padding: var(--space-md) var(--space-lg);
+      background: none;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-medium);
+      cursor: pointer;
+      color: var(--color-text-secondary);
+      transition: all var(--transition-fast);
+    }
+    .detail__wishlist:hover {
+      border-color: var(--color-error);
+      color: var(--color-error);
+    }
+    .detail__wishlist--active {
+      border-color: var(--color-error);
+      color: var(--color-error);
     }
 
     @media (max-width: 768px) {
@@ -167,6 +199,9 @@ export class ProductDetailComponent implements OnInit {
   private readonly api = inject(ApiService);
   private readonly route = inject(ActivatedRoute);
   private readonly location = inject(Location);
+  private readonly destroyRef = inject(DestroyRef);
+  readonly cart = inject(CartService);
+  readonly wishlist = inject(WishlistService);
   readonly product = signal<IProduct | null>(null);
 
   ngOnInit() {
@@ -183,9 +218,11 @@ export class ProductDetailComponent implements OnInit {
       });
   }
 
-  private readonly destroyRef = inject(DestroyRef);
-
   goBack() {
     this.location.back();
+  }
+
+  addToCart(p: IProduct) {
+    this.cart.addProduct(p);
   }
 }
