@@ -50,10 +50,10 @@
 - [x] Playwright, Vitest, gh CLI verified
 
 ### Session 1.1 — Core scaffolding
-- [ ] CSS design tokens (colors, spacing, typography, light/dark) — [B 2c]
-- [ ] Centralized API service (ApiService) — [B 2b]
-- [ ] TypeScript interfaces for Fake Store API — [B 2b]
-- [ ] Base routing with lazy-loaded feature routes — [AC 2a]
+- [x] CSS design tokens (colors, spacing, typography, light/dark) — [B 2c]
+- [x] Centralized API service (ApiService) — [B 2b]
+- [x] TypeScript interfaces for Fake Store API — [B 2b]
+- [x] Base routing with lazy-loaded feature routes — [AC 2a]
 
 ### Session 1.2 — Layout
 - [ ] Header: store name, textual logo, category nav from API — [AC 3a, 3b]
