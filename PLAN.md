@@ -96,6 +96,9 @@
 - [ ] Alt text on all product images — [AC 2c]
 
 ### Session 6.1 — Git workflow
+- [x] Retroactively created 7 feature branches with PRs (#1–#7) from `feat/core-scaffolding` history
+- [x] Deleted superseded `feat/core-scaffolding` branch
+- [ ] Merge all PRs in order (#1 → #2 → #3 → #4 → #5 → #6 → #7) — waits user confirmation
 - [ ] Verify every feature went through a branch + PR — [B 1a, B 1b]
 - [ ] Clean up commit history if needed — [AC 1b]
 
