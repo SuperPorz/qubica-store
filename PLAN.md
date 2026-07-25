@@ -30,10 +30,10 @@
 | B 2c | CSS custom properties / design tokens | ✅ |
 | B 2d | 1-2 unit tests (Vitest) | ✅ |
 | B 2e | State management (Angular Signals) | ✅ |
-| B 3a | Smooth transitions/animations between views — 🔴 needs human review | ✅ |
+| B 3a | Smooth transitions/animations between views | ✅ |
 | B 3b | Loading states (spinner/skeleton) | ✅ |
 | B 3c | Error handling modal | ✅ |
-| B 3d | Light/dark theme toggle — 🔴 needs human review | ✅ |
+| B 3d | Light/dark theme toggle | ✅ |
 | B 3e | Add to cart button + counter in Header | ✅ |
 | B 3f | Login/logout via dedicated API | ✅ |
 
@@ -83,8 +83,8 @@
 - [x] Error handling: "something went wrong" modal — [B 3c]
 
 ### Session 4.2 — Theme & animations
-- [x] Light/dark theme toggle — [B 3d] — 🔴 needs human review ✅ (implemented)
-- [x] Transitions/animations between views — [B 3a] — 🔴 needs human review ✅ (implemented)
+- [x] Light/dark theme toggle — [B 3d] — ✅ reviewed and approved
+- [x] Transitions/animations between views — [B 3a] — ✅ reviewed and approved
 
 ### Session 5.1 — Unit & a11y tests
 - [x] Set up Vitest + 1-2 critical unit tests — [B 2d]

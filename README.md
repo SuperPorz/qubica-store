@@ -37,15 +37,13 @@ ng serve
 
 The app is available at **http://localhost:4200**.
 
-## Available commands
+### Development commands
 
 | Command | Description |
 |---------|-------------|
 | `ng serve` | Start dev server at `http://localhost:4200` |
 | `ng build` | Production build to `dist/` |
 | `ng lint` | Run ESLint on all source files |
-| `ng test` | Run unit tests (Vitest) |
-| `npx playwright test` | Run E2E + accessibility + responsive tests |
 
 ## Running tests
 
@@ -99,15 +97,12 @@ Use these credentials on the Login page:
 - ✅ **B 2c**: CSS custom properties / design tokens (`tokens.css`) with light/dark theme
 - ✅ **B 2d**: Unit tests (Vitest) — CartService (10), ApiService (6)
 - ✅ **B 2e**: State management with Angular Signals (cart, wishlist, auth, loading, error, theme)
+- ✅ **B 3a**: Smooth route transitions — fade-slide animation between views, route-level with `@angular/animations`
 - ✅ **B 3b**: Loading states — skeleton grid on product list, skeleton layout on product detail
 - ✅ **B 3c**: Error handling — HTTP interceptor catches errors, shows modal with dismiss
 - ✅ **B 3d**: Light/dark theme toggle — fixed bottom-right FAB, localStorage persistence, system preference detection
 - ✅ **B 3e**: Add to cart button with badge counter in Header
 - ✅ **B 3f**: Login/logout via Fake Store API with route guard for protected routes
-
-### Pending (human review)
-
-- 🔴 **B 3a**: Smooth route transitions (implemented with `@angular/animations`, removed because it competed with skeleton loading — needs human decision)
 
 ## AI tools usage
 
