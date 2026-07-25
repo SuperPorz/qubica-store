@@ -27,14 +27,16 @@ import { WishlistService } from '../../../core/services/wishlist.service';
         [class.card__wishlist--active]="isWishlisted()"
         (click)="toggleWishlist($event)"
         [attr.aria-label]="isWishlisted() ? 'Remove from wishlist' : 'Add to wishlist'"
-      >♡</button>
+      >
+        <span class="card__heart">{{ isWishlisted() ? '&#9829;' : '&#9825;' }}</span>
+      </button>
     </a>
   `,
   styles: `
     .card {
       display: flex;
       flex-direction: column;
-      background: var(--color-surface);
+      background: var(--color-card-body-bg);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-md);
       overflow: hidden;
@@ -42,13 +44,14 @@ import { WishlistService } from '../../../core/services/wishlist.service';
       color: inherit;
       position: relative;
       transition:
-        transform var(--transition-fast),
-        box-shadow var(--transition-fast);
+        transform 350ms ease,
+        box-shadow 350ms ease,
+        border-color 350ms ease;
     }
     .card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-      text-decoration: none;
+      transform: translateY(-12px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--color-accent);
     }
     .card__image-wrapper {
       display: flex;
@@ -56,12 +59,20 @@ import { WishlistService } from '../../../core/services/wishlist.service';
       justify-content: center;
       padding: var(--space-lg);
       height: 220px;
-      background: #fff;
+      background: var(--color-card-image-bg);
+      transition: background 350ms ease;
+    }
+    .card:hover .card__image-wrapper {
+      background: #fef6f0;
     }
     .card__image {
       max-height: 100%;
       max-width: 100%;
       object-fit: contain;
+      transition: transform 350ms ease;
+    }
+    .card:hover .card__image {
+      transform: scale(1.06);
     }
     .card__body {
       padding: var(--space-md);
@@ -69,6 +80,12 @@ import { WishlistService } from '../../../core/services/wishlist.service';
       flex-direction: column;
       gap: var(--space-xs);
       flex: 1;
+      background: var(--color-card-body-bg);
+      transition: background-color 350ms ease;
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+    }
+    .card:hover .card__body {
+      background-color: var(--color-accent-bg);
     }
     .card__title {
       font-size: var(--font-size-sm);
@@ -94,23 +111,27 @@ import { WishlistService } from '../../../core/services/wishlist.service';
       height: 36px;
       border: none;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.9);
+      background: var(--color-background);
       box-shadow: var(--shadow-sm);
-      font-size: 18px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all var(--transition-fast);
-      color: var(--color-text-secondary);
-      line-height: 1;
+      transition: all 350ms ease;
       z-index: 2;
     }
-    .card__wishlist:hover {
-      transform: scale(1.15);
+    .card__heart {
+      font-size: 22px;
+      line-height: 1;
+      color: var(--color-text-secondary);
+      transition: color 350ms ease, transform 350ms ease;
     }
-    .card__wishlist--active {
-      color: var(--color-error);
+    .card__wishlist:hover {
+      transform: scale(1.2);
+      background: var(--color-background);
+    }
+    .card__wishlist--active .card__heart {
+      color: #d93025;
     }
   `,
 })
