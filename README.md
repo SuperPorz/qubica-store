@@ -111,57 +111,88 @@ Use these credentials on the Login page:
 
 ## AI tools usage
 
-This project was developed with assistance from **Claude (Anthropic)**, an AI coding agent operating inside the **pi coding agent harness**. The AI was used for:
+This project was developed through a structured **agentic workflow** using:
+- **Model**: DeepSeek V4 Flash (via OpenRouter)
+- **Agent harness**: [pi coding agent](https://github.com/earendil-works/pi-coding-agent)
+- **Terminal UI**: pi TUI with vim keybindings, split panes, and integrated tool execution
 
-- **Scaffolding**: generating Angular components, services, interfaces, and configuration files
-- **Implementation**: writing template HTML, CSS styling, TypeScript logic, and Signal-based state management
-- **Testing**: creating Vitest unit tests and Playwright E2E/a11y/responsive tests
-- **Git workflow**: managing feature branches, rebasing, and creating PRs via `gh` CLI
-- **Debugging**: resolving merge conflicts, fixing lint errors, and addressing a11y violations
-- **Design**: implementing design tokens, theme toggle, card hover effects, and responsive layout — all visual decisions were reviewed and approved by a human
+The entire development followed a loop-engineering methodology codified in three files that act as the agent's runtime memory:
 
-Every AI-generated output was reviewed, tested (`ng build`, `ng lint`, `ng test`), and validated by a human before being merged to `main`.
+### Core orchestration files
+
+| File | Role |
+|------|------|
+| [`AGENTS.md`](AGENTS.md) | System prompt for the agent — defines project conventions, folder structure, naming rules, definition of done, shell efficiency rules, and git/PR workflow. Loaded once at session start. |
+| [`PLAN.md`](PLAN.md) | Living roadmap — tracks every acceptance criterion, bonus point, and session-level task with checkboxes. The agent reads it to know what to do next and writes it to mark progress. |
+| [`MEMORY.md`](MEMORY.md) | Persistent session memory — stores architectural decisions, known issues, a signal log (test results, lint output, a11y audits), and a chronological session log. The resume protocol at the top tells the agent what to re-read on reconnection. Prevents context loss across sessions. |
+
+### Agentic inner loop (per subtask)
+
+For every feature subtask, the agent follows a tight **Discover → Act → Verify → Remember → Decide** loop:
+1. **Discover** — read the relevant PLAN.md subtask, architectural decisions, and known issues from MEMORY.md
+2. **Act** — implement the minimal change (components, services, styles, tests)
+3. **Verify** — run `ng build`, `ng lint`, `ng test`, and Playwright checks; no visual self-certification (model has no vision)
+4. **Remember** — append a compact entry to MEMORY.md session log
+5. **Decide** — if Definition of Done satisfied (build ✅, lint ✅, tests ✅), check off the subtask in PLAN.md; otherwise retry (max 3 attempts)
+
+### Outer loop (per session)
+
+At a higher level, each work session collects structured signals (test results, a11y audits via axe-core, console errors, DOM snapshots), evaluates against the DoD, and stores the signal in MEMORY.md. If 3 attempts are exhausted or visual judgment is required, the agent writes a "🔴 NEEDS HUMAN REVIEW" block and stops — the human reviews and signals back.
+
+### What the AI did
+
+- **Scaffolding**: generated Angular 21.2 project with standalone components, strict TypeScript, ESLint
+- **Implementation**: wrote every component, service, interface, route guard, and HTTP interceptor
+- **Styling**: built design tokens (`tokens.css`), responsive grid, card hover effects, skeleton loaders, error modal, theme FAB — all in plain CSS
+- **Testing**: created 16 Vitest unit tests (ApiService + CartService) and Playwright E2E/a11y/responsive tests
+- **Git workflow**: managed feature branches, rebasing, conflict resolution, and PRs via `gh` CLI
+- **Debugging**: resolved merge conflicts, fixed lint errors, addressed a11y violations, and recovered unmerged changes
+
+Every AI-generated output was reviewed, tested (`ng build` ✅, `ng lint` ✅, `ng test` ✅), and validated by a human before being merged to}]}
 
 ## Project structure
 
 ```
-src/
-├── app/
-│   ├── core/
-│   │   ├── api/
-│   │   │   ├── api.service.ts          # HTTP service for Fake Store API
-│   │   │   └── api.interceptor.ts       # HTTP error interceptor
-│   │   ├── models/
-│   │   │   └── api.interface.ts         # TypeScript interfaces
-│   │   ├── guards/
-│   │   │   └── auth.guard.ts            # Route guard for protected routes
-│   │   └── services/
-│   │       ├── auth.service.ts          # Authentication state
-│   │       ├── cart.service.ts          # Cart with localStorage persistence
-│   │       ├── error.service.ts         # Global error state
-│   │       ├── loading.service.ts       # Loading state per request
-│   │       ├── theme.service.ts         # Light/dark theme toggle
-│   │       └── wishlist.service.ts      # Wishlist state
-│   ├── features/
-│   │   ├── products/
-│   │   │   ├── product-card/            # Product card component
-│   │   │   ├── product-list/            # Product grid (home)
-│   │   │   └── product-detail/          # Product detail view
-│   │   ├── cart/                        # Shopping cart
-│   │   ├── wishlist/                    # Wishlist
-│   │   └── auth/                        # Login/logout form
-│   ├── layout/
-│   │   └── header/                      # Header with nav, cart, auth
-│   ├── shared/
-│   │   └── components/
-│   │       ├── error-modal.component.ts # Error dialog
-│   │       └── spinner.component.ts     # Global spinner
-│   ├── app.ts                           # Root component
-│   ├── app.html                         # Root template
-│   ├── app.config.ts                    # App providers
-│   └── app.routes.ts                    # Lazy-loaded routes
+├── AGENTS.md                    # Agent system prompt — conventions, rules, DoD
+├── PLAN.md                      # Living roadmap — tasks, AC/Bonus checkboxes
+├── MEMORY.md                    # Persistent session memory — decisions, logs, signals
 ├── e2e/
-│   └── app.spec.ts                      # Playwright tests
-├── tokens.css                           # Design tokens
-└── styles.css                           # Global styles
+│   └── app.spec.ts              # Playwright tests
+├── src/
+│   ├── app/
+│   │   ├── core/
+│   │   │   ├── api/
+│   │   │   │   ├── api.service.ts          # HTTP service for Fake Store API
+│   │   │   │   └── api.interceptor.ts       # HTTP error interceptor
+│   │   │   ├── models/
+│   │   │   │   └── api.interface.ts         # TypeScript interfaces
+│   │   │   ├── guards/
+│   │   │   │   └── auth.guard.ts            # Route guard for protected routes
+│   │   │   └── services/
+│   │   │       ├── auth.service.ts          # Authentication state
+│   │   │       ├── cart.service.ts          # Cart with localStorage persistence
+│   │   │       ├── error.service.ts         # Global error state
+│   │   │       ├── loading.service.ts       # Loading state per request
+│   │   │       ├── theme.service.ts         # Light/dark theme toggle
+│   │   │       └── wishlist.service.ts      # Wishlist state
+│   │   ├── features/
+│   │   │   ├── products/
+│   │   │   │   ├── product-card/            # Product card component
+│   │   │   │   ├── product-list/            # Product grid (home)
+│   │   │   │   └── product-detail/          # Product detail view
+│   │   │   ├── cart/                        # Shopping cart
+│   │   │   ├── wishlist/                    # Wishlist
+│   │   │   └── auth/                        # Login/logout form
+│   │   ├── layout/
+│   │   │   └── header/                      # Header with nav, cart, auth
+│   │   ├── shared/
+│   │   │   └── components/
+│   │   │       ├── error-modal.component.ts # Error dialog
+│   │   │       └── spinner.component.ts     # Global spinner
+│   │   ├── app.ts                           # Root component
+│   │   ├── app.html                         # Root template
+│   │   ├── app.config.ts                    # App providers
+│   │   └── app.routes.ts                    # Lazy-loaded routes
+│   ├── tokens.css                           # Design tokens
+│   └── styles.css                           # Global styles
 ```
