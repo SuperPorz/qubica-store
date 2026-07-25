@@ -2,6 +2,7 @@ import { Component, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { IProduct } from '../../../core/models/api.interface';
+import { CartService } from '../../../core/services/cart.service';
 import { WishlistService } from '../../../core/services/wishlist.service';
 
 @Component({
@@ -21,6 +22,14 @@ import { WishlistService } from '../../../core/services/wishlist.service';
       <div class="card__body">
         <h3 class="card__title">{{ product().title }}</h3>
         <p class="card__price">{{ product().price | currency }}</p>
+        <button
+          class="card__cart-btn"
+          (click)="addToCart($event)"
+          aria-label="Add to cart"
+        >
+          <span class="card__cart-icon">&#128722;</span>
+          Add to Cart
+        </button>
       </div>
       <button
         class="card__wishlist"
@@ -133,10 +142,38 @@ import { WishlistService } from '../../../core/services/wishlist.service';
     .card__wishlist--active .card__heart {
       color: #d93025;
     }
+
+    .card__cart-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      width: 100%;
+      margin-top: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-md);
+      background: var(--color-primary);
+      color: var(--color-primary-text);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+      transition: background-color var(--transition-fast), border-color var(--transition-fast);
+      z-index: 2;
+    }
+    .card__cart-btn:hover {
+      background: var(--color-primary-hover);
+      border-color: var(--color-primary-hover);
+    }
+    .card__cart-icon {
+      font-size: 1.1rem;
+      line-height: 1;
+    }
   `,
 })
 export class ProductCardComponent {
   readonly product = input.required<IProduct>();
+  private readonly cart = inject(CartService);
   private readonly wishlist = inject(WishlistService);
 
   isWishlisted() {
@@ -147,5 +184,11 @@ export class ProductCardComponent {
     event.preventDefault();
     event.stopPropagation();
     this.wishlist.toggle(this.product().id);
+  }
+
+  addToCart(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.cart.addProduct(this.product());
   }
 }
