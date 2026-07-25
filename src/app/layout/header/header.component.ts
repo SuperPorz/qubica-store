@@ -18,9 +18,7 @@ export function formatCategory(cat: string): string {
     <header class="header">
       <div class="header__inner">
         <a class="header__logo" routerLink="/" aria-label="Qubica Store Home"
-          ><svg class="header__logo-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 3C10 3 9 5 9 7C9 9 10 10 10 12C10 13 9 15 8 17C7 19 8 21 12 21C16 21 17 19 16 17C15 15 14 13 14 12C14 10 15 9 15 7C15 5 14 3 12 3Z"/>
-          </svg> Qubica</a
+          ><img src="bowling-pins.png" alt="" class="header__logo-icon" width="24" height="24" /> Qubica</a
         >
 
         <nav class="header__nav" aria-label="Product categories">
@@ -111,6 +109,10 @@ export function formatCategory(cat: string): string {
       height: 24px;
       flex-shrink: 0;
     }
+
+    :host-context([data-theme='dark']) .header__logo-icon {
+      filter: invert(1);
+    }
     .header__nav {
       display: flex;
       gap: var(--space-sm);
@@ -128,6 +130,7 @@ export function formatCategory(cat: string): string {
       text-decoration: none;
       border-radius: var(--radius-sm);
       white-space: nowrap;
+      flex-shrink: 0;
       transition: color var(--transition-fast), background var(--transition-fast);
     }
     .header__link:hover {
@@ -235,6 +238,31 @@ export function formatCategory(cat: string): string {
     }
     .theme-fab__icon {
       line-height: 1;
+    }
+
+    /* ── Mobile: two-row header ── */
+    @media (max-width: 768px) {
+      .header__inner {
+        flex-wrap: wrap;
+        gap: var(--space-xs) var(--space-md);
+        padding: var(--space-sm) var(--space-md);
+      }
+
+      .header__logo {
+        order: 1;
+      }
+
+      .header__actions {
+        order: 2;
+        margin-left: auto;
+      }
+
+      .header__nav {
+        order: 3;
+        flex: 0 0 100%;
+        padding: 0 0 var(--space-xs);
+        gap: var(--space-xs);
+      }
     }
   `,
   ],
