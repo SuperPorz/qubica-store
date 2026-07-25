@@ -9,8 +9,8 @@
 | AC 1c | README.md with precise local setup instructions | ✅ |
 | AC 1d | AI tools usage paragraph in README.md | ✅ |
 | AC 2a | Global layout: Header + Main area | ✅ |
-| AC 2b | Responsive on tablets and smartphones | ☐ |
-| AC 2c | Semantic HTML5, keyboard nav, alt attributes on product images | ☐ |
+| AC 2b | Responsive on tablets and smartphones | ✅ |
+| AC 2c | Semantic HTML5, keyboard nav, alt attributes on product images | ✅ |
 | AC 3a | Header: store name, textual logo, category navigation | ✅ |
 | AC 3b | Categories fetched dynamically via API | ✅ |
 | AC 4a | Home: product grid (image, name, price) | ✅ |
@@ -28,12 +28,12 @@
 | B 2a | Vue.js — SKIPPED (incompatible with Angular stack decision) | ✅ |
 | B 2b | Strict TypeScript for API responses and data structures | ✅ |
 | B 2c | CSS custom properties / design tokens | ✅ |
-| B 2d | 1-2 unit tests (Vitest) | ☐ |
+| B 2d | 1-2 unit tests (Vitest) | ✅ |
 | B 2e | State management (Angular Signals) | ✅ |
-| B 3a | Smooth transitions/animations between views — 🔴 needs human review | ☐ |
+| B 3a | Smooth transitions/animations between views — 🔴 needs human review | ✅ |
 | B 3b | Loading states (spinner/skeleton) | ✅ |
 | B 3c | Error handling modal | ✅ |
-| B 3d | Light/dark theme toggle — 🔴 needs human review | ☐ |
+| B 3d | Light/dark theme toggle — 🔴 needs human review | ✅ |
 | B 3e | Add to cart button + counter in Header | ✅ |
 | B 3f | Login/logout via dedicated API | ✅ |
 

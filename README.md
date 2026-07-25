@@ -46,7 +46,6 @@ The app is available at **http://localhost:4200**.
 | `ng lint` | Run ESLint on all source files |
 | `ng test` | Run unit tests (Vitest) |
 | `npx playwright test` | Run E2E + accessibility + responsive tests |
-| `ng generate component <name>` | Scaffold a new component |
 
 ## Running tests
 
