@@ -147,16 +147,24 @@ export function formatCategory(cat: string): string {
       gap: var(--space-md);
     }
 
-    /* Action icons (cart, wishlist) */
+    /* Action buttons (cart, wishlist) */
     .header__action-link {
       position: relative;
       display: flex;
       align-items: center;
+      justify-content: center;
+      padding: var(--space-xs) var(--space-md);
+      min-width: 42px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
       color: var(--color-text-secondary);
       text-decoration: none;
-      transition: color var(--transition-fast);
+      transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
     }
     .header__action-link:hover {
+      border-color: var(--color-primary);
+      background: var(--color-hover);
       color: var(--color-text-primary);
     }
     .header__icon {
@@ -210,6 +218,17 @@ export function formatCategory(cat: string): string {
       background: var(--color-error-bg);
       border-color: var(--color-error);
       color: var(--color-error);
+    }
+
+    :host-context([data-theme='dark']) .header__auth-btn--logout {
+      background: #ffffff;
+      color: #202124;
+      border-color: #ffffff;
+    }
+    :host-context([data-theme='dark']) .header__auth-btn--logout:hover {
+      background: var(--color-error-bg);
+      color: var(--color-error);
+      border-color: var(--color-error);
     }
 
     /* Theme FAB — fixed bottom-right */
