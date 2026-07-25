@@ -29,15 +29,13 @@ git clone https://github.com/SuperPorz/qubica-store.git
 cd qubica-store
 
 # Install dependencies
-npm install --legacy-peer-deps
+npm install
 
 # Start the development server
 ng serve
 ```
 
 The app is available at **http://localhost:4200**.
-
-> `--legacy-peer-deps` is needed for compatibility between angular-eslint and TypeScript 5.9 on Node 26.
 
 ## Available commands
 
