@@ -1,4 +1,4 @@
-# PLAN.md — Qubica AMF E-Commerce Challenge
+﻿# PLAN.md — Qubica AMF E-Commerce Challenge
 
 ## Acceptance Criteria checklist
 
@@ -83,8 +83,8 @@
 - [x] Error handling: "something went wrong" modal — [B 3c]
 
 ### Session 4.2 — Theme & animations
-- [ ] Light/dark theme toggle — [B 3d] — 🔴 needs human review
-- [ ] Transitions/animations between views — [B 3a] — 🔴 needs human review
+- [x] Light/dark theme toggle — [B 3d] — 🔴 needs human review ✅ (implemented)
+- [x] Transitions/animations between views — [B 3a] — 🔴 needs human review ✅ (implemented)
 
 ### Session 5.1 — Unit & a11y tests
 - [ ] Set up Vitest + 1-2 critical unit tests — [B 2d]

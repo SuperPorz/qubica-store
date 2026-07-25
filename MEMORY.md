@@ -1,4 +1,4 @@
-# MEMORY.md — Session memory and resume protocol
+﻿# MEMORY.md — Session memory and resume protocol
 
 ## Resume protocol (read this first at the start of every session)
 
