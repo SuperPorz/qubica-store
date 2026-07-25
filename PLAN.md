@@ -87,20 +87,20 @@
 - [x] Transitions/animations between views — [B 3a] — 🔴 needs human review ✅ (implemented)
 
 ### Session 5.1 — Unit & a11y tests
-- [ ] Set up Vitest + 1-2 critical unit tests — [B 2d]
-- [ ] Automated a11y audit (axe-core via Playwright) — [AC 2c]
-- [ ] Keyboard navigation check via Playwright — [AC 2c]
+- [x] Set up Vitest + 1-2 critical unit tests — [B 2d]
+- [x] Automated a11y audit (axe-core via Playwright) — [AC 2c]
+- [x] Keyboard navigation check via Playwright — [AC 2c]
 
 ### Session 5.2 — Responsive tests
-- [ ] Responsive check (tablet/smartphone viewport via Playwright) — [AC 2b]
-- [ ] Alt text on all product images — [AC 2c]
+- [x] Responsive check (tablet/smartphone viewport via Playwright) — [AC 2b]
+- [x] Alt text on all product images — [AC 2c]
 
 ### Session 6.1 — Git workflow
 - [x] Retroactively created 7 feature branches with PRs (#1–#7) from `feat/core-scaffolding` history
 - [x] Deleted superseded `feat/core-scaffolding` branch
 - [x] All 7 PRs merged to main in order (#1 → #7)
 - [x] Verify every feature went through a branch + PR — [B 1a, B 1b]
-- [ ] Clean up commit history if needed — [AC 1b]
+- [x] Clean up commit history — [AC 1b]
 
 ### Session 7.1 — Documentation
 - [x] README.md: precise local setup instructions — [AC 1c]
