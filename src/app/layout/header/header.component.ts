@@ -128,6 +128,7 @@ export function formatCategory(cat: string): string {
       text-decoration: none;
       border-radius: var(--radius-sm);
       white-space: nowrap;
+      flex-shrink: 0;
       transition: color var(--transition-fast), background var(--transition-fast);
     }
     .header__link:hover {
@@ -235,6 +236,31 @@ export function formatCategory(cat: string): string {
     }
     .theme-fab__icon {
       line-height: 1;
+    }
+
+    /* ── Mobile: two-row header ── */
+    @media (max-width: 768px) {
+      .header__inner {
+        flex-wrap: wrap;
+        gap: var(--space-xs) var(--space-md);
+        padding: var(--space-sm) var(--space-md);
+      }
+
+      .header__logo {
+        order: 1;
+      }
+
+      .header__actions {
+        order: 2;
+        margin-left: auto;
+      }
+
+      .header__nav {
+        order: 3;
+        flex: 0 0 100%;
+        padding: 0 0 var(--space-xs);
+        gap: var(--space-xs);
+      }
     }
   `,
   ],
