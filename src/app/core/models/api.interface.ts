@@ -11,10 +11,6 @@ export interface IProduct {
   };
 }
 
-export interface ICategory {
-  name: string;
-}
-
 export interface ILoginRequest {
   username: string;
   password: string;
