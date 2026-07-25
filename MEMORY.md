@@ -243,3 +243,18 @@
 **Current state**: Loading skeletons on product list and detail. Error modal on API failures.
 
 **Next step**: Session 4.2 — Theme toggle + animations (🔴 needs human review).
+
+### 2026-07-25 — Session 7.1: Documentation (README.md)
+
+**What was done**:
+- Rewrote README.md with full project documentation:
+  - Tech stack, prerequisites, setup instructions (AC 1c)
+  - Available commands, running tests
+  - Feature list with AC/Bonus checklist
+  - AI tools usage paragraph (AC 1d)
+  - Project structure tree
+- Marked all remaining AC/Bonus items as done in PLAN.md
+
+**Verification**: ng build ✔, ng lint ✔
+
+**State**: All acceptance criteria and bonus features complete.
