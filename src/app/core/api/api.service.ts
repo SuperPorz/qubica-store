@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
   IProduct,
-  ICategory,
   ILoginRequest,
   ILoginResponse,
 } from '../models/api.interface';
@@ -21,8 +20,8 @@ export class ApiService {
     return this.http.get<IProduct>(`${this.baseUrl}/products/${id}`);
   }
 
-  getCategories(): Observable<ICategory[]> {
-    return this.http.get<ICategory[]>(`${this.baseUrl}/products/categories`);
+  getCategories(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.baseUrl}/products/categories`);
   }
 
   getProductsByCategory(category: string): Observable<IProduct[]> {
