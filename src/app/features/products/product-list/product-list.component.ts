@@ -16,7 +16,7 @@ import { ProductCardComponent } from '../product-card/product-card.component';
         {{ activeCategory() || 'All' }} Products
       </h2>
 
-      @if (products().length === 0 && loading()) {
+      @if (loading()) {
         <div class="products__loading">
           <div class="skeleton-grid">
             @for (_ of [1,2,3,4,5,6]; track _) {
@@ -30,17 +30,9 @@ import { ProductCardComponent } from '../product-card/product-card.component';
           </div>
         </div>
       } @else {
-        <div class="products__grid-wrapper">
-          <div class="products__grid">
-            @for (product of products(); track product.id) {
-              <app-product-card [product]="product" />
-            }
-          </div>
-          @if (loading()) {
-            <div class="products__loading-overlay">
-              <div class="products__loading-spinner"></div>
-              <span class="products__loading-text">Loading products…</span>
-            </div>
+        <div class="products__grid">
+          @for (product of products(); track product.id) {
+            <app-product-card [product]="product" />
           }
         </div>
       }
@@ -101,42 +93,10 @@ import { ProductCardComponent } from '../product-card/product-card.component';
       margin: var(--space-sm) var(--space-md) var(--space-md);
       border-radius: var(--radius-md);
     }
-    .products__grid-wrapper {
-      position: relative;
-    }
-    .products__loading-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: var(--space-md);
-      background: var(--color-overlay);
-      backdrop-filter: blur(2px);
-      border-radius: var(--radius-md);
-      z-index: 10;
-      min-height: 300px;
-    }
-    .products__loading-spinner {
-      width: 44px;
-      height: 44px;
-      border: 4px solid var(--color-surface);
-      border-top-color: var(--color-primary);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-    .products__loading-text {
-      color: var(--color-text-primary);
-      font-size: var(--font-size-base);
-      font-weight: var(--font-weight-medium);
-    }
+
     @keyframes pulse {
       0%, 100% { opacity: 0.5; }
       50% { opacity: 1; }
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
     }
   `,
 })
