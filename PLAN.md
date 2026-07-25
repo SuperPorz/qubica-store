@@ -30,7 +30,7 @@
 | B 2c | CSS custom properties / design tokens | ✅ |
 | B 2d | 1-2 unit tests (Vitest) | ✅ |
 | B 2e | State management (Angular Signals) | ✅ |
-| B 3a | Smooth transitions/animations between views | ⚠️ (CSS transitions OK, mancano route-level @angular/animations) |
+| B 3a | Smooth transitions/animations between views | ✅ |
 | B 3b | Loading states (spinner/skeleton) | ✅ |
 | B 3c | Error handling modal | ✅ |
 | B 3d | Light/dark theme toggle | ✅ |
@@ -112,11 +112,11 @@
 ### Session 8.1 — Fix & Polish (post-FINAL_TEST.md audit)
 
 #### — Issue critica: Route animations (B 3a) —
-- [ ] Installare `@angular/animations` e implementare route-level fade-slide animation tra le views — [B 3a]
-- [ ] Aggiornare README.md per riflettere correttamente le animazioni implementate (CSS transitions + route animations se installate)
+- [x] Installare `@angular/animations` e implementare route-level fade-slide animation tra le views — [B 3a]
+- [x] Aggiornare README.md per riflettere correttamente le animazioni implementate (CSS transitions + route animations)
 
 #### — Issue minori —
-- [ ] Correggere `routerLink="/products"` in `routerLink="/"` nell'header per i link categoria — [AC 4c]
-- [ ] Aggiungere route esplicita `/products` che carica `ProductListComponent` (opzionale ma pulito)
-- [ ] Sincronizzare MEMORY.md: rimuovere menzione `ICategory` non più in uso
-- [ ] Creare directory `verification/` con `.gitkeep` come da AGENTS.md §5
+- [x] Correggere `routerLink="/products"` in `routerLink="/"` nell'header per i link categoria — [AC 4c]
+- [x] Aggiungere route esplicita `/products` che carica `ProductListComponent`
+- [x] Sincronizzare MEMORY.md: rimuovere menzione `ICategory` non più in uso
+- [x] Creare directory `verification/` con `.gitkeep` come da AGENTS.md §5

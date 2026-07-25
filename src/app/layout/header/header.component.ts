@@ -32,7 +32,7 @@ export function formatCategory(cat: string): string {
           @for (cat of categories(); track cat) {
             <a
               class="header__link"
-              [routerLink]="'/products'"
+              [routerLink]="'/'"
               [queryParams]="{ category: cat }"
               routerLinkActive="header__link--active"
               [routerLinkActiveOptions]="{ exact: true }"

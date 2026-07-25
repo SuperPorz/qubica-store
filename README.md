@@ -97,7 +97,7 @@ Use these credentials on the Login page:
 - ✅ **B 2c**: CSS custom properties / design tokens (`tokens.css`) with light/dark theme
 - ✅ **B 2d**: Unit tests (Vitest) — CartService (10), ApiService (6)
 - ✅ **B 2e**: State management with Angular Signals (cart, wishlist, auth, loading, error, theme)
-- ✅ **B 3a**: Smooth route transitions — fade-slide animation between views, route-level with `@angular/animations`
+- ✅ **B 3a**: Smooth route transitions — fade-slide animation between views via `@angular/animations`, plus CSS hover transitions on cards, buttons, and theme FAB
 - ✅ **B 3b**: Loading states — skeleton grid on product list, skeleton layout on product detail
 - ✅ **B 3c**: Error handling — HTTP interceptor catches errors, shows modal with dismiss
 - ✅ **B 3d**: Light/dark theme toggle — fixed bottom-right FAB, localStorage persistence, system preference detection
