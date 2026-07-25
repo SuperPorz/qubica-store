@@ -52,6 +52,8 @@ import { WishlistService } from '../../../core/services/wishlist.service';
       text-decoration: none;
       color: inherit;
       position: relative;
+      min-height: 380px;
+      height: 100%;
       transition:
         transform 350ms ease,
         box-shadow 350ms ease,
@@ -89,6 +91,7 @@ import { WishlistService } from '../../../core/services/wishlist.service';
       flex-direction: column;
       gap: var(--space-xs);
       flex: 1;
+      min-height: 0;
       background: var(--color-card-body-bg);
       transition: background-color 350ms ease;
       border-radius: 0 0 var(--radius-md) var(--radius-md);
@@ -111,6 +114,25 @@ import { WishlistService } from '../../../core/services/wishlist.service';
       font-weight: var(--font-weight-bold);
       color: var(--color-primary);
       margin-top: auto;
+    }
+    .card__cart-btn {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      width: 100%;
+      margin-top: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-md);
+      background: var(--color-primary);
+      color: var(--color-primary-text);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+      transition: background-color var(--transition-fast), border-color var(--transition-fast);
+      z-index: 2;
     }
     .card__wishlist {
       position: absolute;
@@ -143,24 +165,7 @@ import { WishlistService } from '../../../core/services/wishlist.service';
       color: #d93025;
     }
 
-    .card__cart-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: var(--space-xs);
-      width: 100%;
-      margin-top: var(--space-sm);
-      padding: var(--space-sm) var(--space-md);
-      border: 1px solid var(--color-primary);
-      border-radius: var(--radius-md);
-      background: var(--color-primary);
-      color: var(--color-primary-text);
-      font-size: var(--font-size-sm);
-      font-weight: var(--font-weight-semibold);
-      cursor: pointer;
-      transition: background-color var(--transition-fast), border-color var(--transition-fast);
-      z-index: 2;
-    }
+
     .card__cart-btn:hover {
       background: var(--color-primary-hover);
       border-color: var(--color-primary-hover);

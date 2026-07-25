@@ -74,6 +74,7 @@ import { ProductCardComponent } from '../product-card/product-card.component';
       border: 1px solid var(--color-border);
       border-radius: var(--radius-md);
       overflow: hidden;
+      min-height: 380px;
     }
     .skeleton {
       background: var(--color-border);
