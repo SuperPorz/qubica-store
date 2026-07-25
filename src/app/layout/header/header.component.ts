@@ -110,7 +110,7 @@ export function formatCategory(cat: string): string {
       flex-shrink: 0;
     }
 
-    [data-theme='dark'] .header__logo-icon {
+    :host-context([data-theme='dark']) .header__logo-icon {
       filter: invert(1);
     }
     .header__nav {
