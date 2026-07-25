@@ -30,17 +30,19 @@ import { ProductCardComponent } from '../product-card/product-card.component';
           </div>
         </div>
       } @else {
-        <div class="products__grid">
-          @for (product of products(); track product.id) {
-            <app-product-card [product]="product" />
+        <div class="products__grid-wrapper">
+          <div class="products__grid">
+            @for (product of products(); track product.id) {
+              <app-product-card [product]="product" />
+            }
+          </div>
+          @if (loading()) {
+            <div class="products__loading-overlay">
+              <div class="products__loading-spinner"></div>
+              <span class="products__loading-text">Loading products…</span>
+            </div>
           }
         </div>
-        @if (loading()) {
-          <div class="products__loading-overlay">
-            <span class="products__loading-spinner"></span>
-            <span>Loading…</span>
-          </div>
-        }
       }
     </section>
   `,
@@ -99,24 +101,35 @@ import { ProductCardComponent } from '../product-card/product-card.component';
       margin: var(--space-sm) var(--space-md) var(--space-md);
       border-radius: var(--radius-md);
     }
+    .products__grid-wrapper {
+      position: relative;
+    }
     .products__loading-overlay {
+      position: absolute;
+      inset: 0;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: var(--space-sm);
-      margin-top: var(--space-lg);
-      padding: var(--space-md);
-      color: var(--color-text-secondary);
-      font-size: var(--font-size-sm);
+      gap: var(--space-md);
+      background: var(--color-overlay);
+      backdrop-filter: blur(2px);
+      border-radius: var(--radius-md);
+      z-index: 10;
+      min-height: 300px;
     }
     .products__loading-spinner {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      border: 2px solid var(--color-border);
+      width: 44px;
+      height: 44px;
+      border: 4px solid var(--color-surface);
       border-top-color: var(--color-primary);
       border-radius: 50%;
-      animation: spin 0.6s linear infinite;
+      animation: spin 0.8s linear infinite;
+    }
+    .products__loading-text {
+      color: var(--color-text-primary);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-medium);
     }
     @keyframes pulse {
       0%, 100% { opacity: 0.5; }
