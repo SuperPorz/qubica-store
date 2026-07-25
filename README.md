@@ -45,6 +45,11 @@ The app is available at **http://localhost:4200**.
 | `ng build` | Production build to `dist/` |
 | `ng lint` | Run ESLint on all source files |
 
+> **Note**: In development mode (`ng serve`), API responses are artificially delayed by ~800ms
+> (`ApiService` → `isDevMode() ? 800 : 0`) so that skeleton loaders remain visible long
+> enough to appreciate the loading UX. In production builds this delay is automatically
+> removed (`isDevMode()` returns `false`).
+
 ## Running tests
 
 ### Unit tests

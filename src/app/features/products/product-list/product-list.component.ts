@@ -1,7 +1,6 @@
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest, timer } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from '../../../core/api/api.service';
 import { IProduct } from '../../../core/models/api.interface';
@@ -144,13 +143,9 @@ export class ProductListComponent implements OnInit {
           const cat = params.get('category') ?? '';
           this.activeCategory.set(cat);
           this.loading.set(true);
-          const apiCall$ = cat
+          return cat
             ? this.api.getProductsByCategory(cat)
             : this.api.getProducts();
-          // Ensure minimum 300ms loading visibility for smooth feedback
-          return combineLatest([apiCall$, timer(300)]).pipe(
-            map(([data]) => data)
-          );
         })
       )
       .subscribe((data: IProduct[]) => {

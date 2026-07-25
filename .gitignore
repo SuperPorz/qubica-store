@@ -39,6 +39,10 @@ testem.log
 /typings
 __screenshots__/
 
+# Test / verification artifacts
+test-results/
+verification/
+
 # System files
 .DS_Store
 Thumbs.db

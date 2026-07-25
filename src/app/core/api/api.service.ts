@@ -12,21 +12,31 @@ export class ApiService {
   private readonly http = inject(HttpClient);
   private readonly baseUrl = 'https://fakestoreapi.com';
 
+  private readonly simDelay = isDevMode() ? 800 : 0;
+
   getProducts(): Observable<IProduct[]> {
-    return this.http.get<IProduct[]>(`${this.baseUrl}/products`);
+    return this.http.get<IProduct[]>(`${this.baseUrl}/products`).pipe(
+      delay(this.simDelay)
+    );
   }
 
   getProduct(id: number): Observable<IProduct> {
-    return this.http.get<IProduct>(`${this.baseUrl}/products/${id}`);
+    return this.http.get<IProduct>(`${this.baseUrl}/products/${id}`).pipe(
+      delay(this.simDelay)
+    );
   }
 
   getCategories(): Observable<string[]> {
-    return this.http.get<string[]>(`${this.baseUrl}/products/categories`);
+    return this.http.get<string[]>(`${this.baseUrl}/products/categories`).pipe(
+      delay(this.simDelay)
+    );
   }
 
   getProductsByCategory(category: string): Observable<IProduct[]> {
     return this.http.get<IProduct[]>(
       `${this.baseUrl}/products/category/${category}`
+    ).pipe(
+      delay(this.simDelay)
     );
   }
 
@@ -34,6 +44,8 @@ export class ApiService {
     return this.http.post<ILoginResponse>(
       `${this.baseUrl}/auth/login`,
       credentials
+    ).pipe(
+      delay(this.simDelay)
     );
   }
 }
