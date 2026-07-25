@@ -1,6 +1,7 @@
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { combineLatest, timer } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from '../../../core/api/api.service';
 import { IProduct } from '../../../core/models/api.interface';
@@ -16,7 +17,7 @@ import { ProductCardComponent } from '../product-card/product-card.component';
         {{ activeCategory() || 'All' }} Products
       </h2>
 
-      @if (loading()) {
+      @if (products().length === 0 && loading()) {
         <div class="products__loading">
           <div class="skeleton-grid">
             @for (_ of [1,2,3,4,5,6]; track _) {
@@ -24,6 +25,7 @@ import { ProductCardComponent } from '../product-card/product-card.component';
                 <div class="skeleton skeleton--image"></div>
                 <div class="skeleton skeleton--title"></div>
                 <div class="skeleton skeleton--price"></div>
+                <div class="skeleton skeleton--cartbtn"></div>
               </div>
             }
           </div>
@@ -34,6 +36,12 @@ import { ProductCardComponent } from '../product-card/product-card.component';
             <app-product-card [product]="product" />
           }
         </div>
+        @if (loading()) {
+          <div class="products__loading-overlay">
+            <span class="products__loading-spinner"></span>
+            <span>Loading…</span>
+          </div>
+        }
       }
     </section>
   `,
@@ -84,11 +92,38 @@ import { ProductCardComponent } from '../product-card/product-card.component';
     .skeleton--price {
       height: 24px;
       width: 80px;
-      margin: var(--space-xs) var(--space-md) var(--space-md);
+      margin: var(--space-xs) var(--space-md) 0;
+    }
+    .skeleton--cartbtn {
+      height: 36px;
+      margin: var(--space-sm) var(--space-md) var(--space-md);
+      border-radius: var(--radius-md);
+    }
+    .products__loading-overlay {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+      padding: var(--space-md);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+    }
+    .products__loading-spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--color-border);
+      border-top-color: var(--color-primary);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
     }
     @keyframes pulse {
       0%, 100% { opacity: 0.5; }
       50% { opacity: 1; }
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
   `,
 })
@@ -101,7 +136,6 @@ export class ProductListComponent implements OnInit {
   readonly loading = signal(true);
 
   ngOnInit() {
-    this.loading.set(true);
     this.route.queryParamMap
       .pipe(
         takeUntilDestroyed(this.destroyRef),
@@ -109,9 +143,13 @@ export class ProductListComponent implements OnInit {
           const cat = params.get('category') ?? '';
           this.activeCategory.set(cat);
           this.loading.set(true);
-          return cat
+          const apiCall$ = cat
             ? this.api.getProductsByCategory(cat)
             : this.api.getProducts();
+          // Ensure minimum 300ms loading visibility for smooth feedback
+          return combineLatest([apiCall$, timer(300)]).pipe(
+            map(([data]) => data)
+          );
         })
       )
       .subscribe((data: IProduct[]) => {
