@@ -6,8 +6,8 @@
 |-----|-------------|--------|
 | AC 1a | Public GitHub repository | ✅ |
 | AC 1b | Clean commit messages, clean history | ✅ |
-| AC 1c | README.md with precise local setup instructions | ☐ |
-| AC 1d | AI tools usage paragraph in README.md | ☐ |
+| AC 1c | README.md with precise local setup instructions | ✅ |
+| AC 1d | AI tools usage paragraph in README.md | ✅ |
 | AC 2a | Global layout: Header + Main area | ✅ |
 | AC 2b | Responsive on tablets and smartphones | ☐ |
 | AC 2c | Semantic HTML5, keyboard nav, alt attributes on product images | ☐ |
@@ -103,7 +103,7 @@
 - [ ] Clean up commit history if needed — [AC 1b]
 
 ### Session 7.1 — Documentation
-- [ ] README.md: precise local setup instructions — [AC 1c]
-- [ ] README.md: AI tools usage paragraph — [AC 1d]
-- [ ] Public repo verified — [AC 1a]
-- [ ] Final AC+Bonus checklist review, with note on Vue.js SKIPPED
+- [x] README.md: precise local setup instructions — [AC 1c]
+- [x] README.md: AI tools usage paragraph — [AC 1d]
+- [x] Public repo verified — [AC 1a]
+- [x] Final AC+Bonus checklist review, with note on Vue.js SKIPPED
