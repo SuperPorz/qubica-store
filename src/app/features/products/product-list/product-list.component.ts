@@ -1,6 +1,6 @@
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from '../../../core/api/api.service';
 import { IProduct } from '../../../core/models/api.interface';
@@ -24,6 +24,7 @@ import { ProductCardComponent } from '../product-card/product-card.component';
                 <div class="skeleton skeleton--image"></div>
                 <div class="skeleton skeleton--title"></div>
                 <div class="skeleton skeleton--price"></div>
+                <div class="skeleton skeleton--cartbtn"></div>
               </div>
             }
           </div>
@@ -66,6 +67,7 @@ import { ProductCardComponent } from '../product-card/product-card.component';
       border: 1px solid var(--color-border);
       border-radius: var(--radius-md);
       overflow: hidden;
+      min-height: 380px;
     }
     .skeleton {
       background: var(--color-border);
@@ -84,8 +86,14 @@ import { ProductCardComponent } from '../product-card/product-card.component';
     .skeleton--price {
       height: 24px;
       width: 80px;
-      margin: var(--space-xs) var(--space-md) var(--space-md);
+      margin: var(--space-xs) var(--space-md) 0;
     }
+    .skeleton--cartbtn {
+      height: 36px;
+      margin: var(--space-sm) var(--space-md) var(--space-md);
+      border-radius: var(--radius-md);
+    }
+
     @keyframes pulse {
       0%, 100% { opacity: 0.5; }
       50% { opacity: 1; }
@@ -101,7 +109,6 @@ export class ProductListComponent implements OnInit {
   readonly loading = signal(true);
 
   ngOnInit() {
-    this.loading.set(true);
     this.route.queryParamMap
       .pipe(
         takeUntilDestroyed(this.destroyRef),

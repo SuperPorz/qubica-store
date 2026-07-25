@@ -58,7 +58,7 @@
 **What was done**:
 - Created `tokens.css` with light/dark theme variables (colors, spacing, typography, shadows, transitions)
 - Created `styles.css` importing tokens + global resets
-- Created `IProduct`, `ICategory`, `ILoginRequest`, `ILoginResponse` interfaces in `core/models/api.interface.ts`
+- Created `IProduct`, `ILoginRequest`, `ILoginResponse` interfaces in `core/models/api.interface.ts`
 - Created centralized `ApiService` in `core/api/api.service.ts` with 5 methods (getProducts, getProduct, getCategories, getProductsByCategory, login)
 - Set up app.config.ts with HttpClient (`withFetch`) + Router
 - Created lazy-loaded routes for home, product/:id, cart, wishlist, auth + 404 redirect

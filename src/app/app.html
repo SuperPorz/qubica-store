@@ -1,5 +1,7 @@
 <app-header />
 <main class="app-main">
-  <router-outlet />
+  <section class="route-container" [@routeAnimations]="o?.activatedRouteData?.['animation']">
+    <router-outlet #o="outlet" />
+  </section>
 </main>
 <app-error-modal />
