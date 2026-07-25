@@ -18,9 +18,7 @@ export function formatCategory(cat: string): string {
     <header class="header">
       <div class="header__inner">
         <a class="header__logo" routerLink="/" aria-label="Qubica Store Home"
-          ><svg class="header__logo-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 3C10 3 9 5 9 7C9 9 10 10 10 12C10 13 9 15 8 17C7 19 8 21 12 21C16 21 17 19 16 17C15 15 14 13 14 12C14 10 15 9 15 7C15 5 14 3 12 3Z"/>
-          </svg> Qubica</a
+          ><img src="bowling-pins.png" alt="" class="header__logo-icon" width="24" height="24" /> Qubica</a
         >
 
         <nav class="header__nav" aria-label="Product categories">
