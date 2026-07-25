@@ -1,0 +1,24 @@
+import { defineConfig, devices } from '@playwright/test';
+
+export default defineConfig({
+  testDir: './e2e',
+  timeout: 30000,
+  retries: 0,
+  use: {
+    baseURL: 'http://localhost:4200',
+    trace: 'retain-on-failure',
+    screenshot: 'only-on-failure',
+  },
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+  ],
+  webServer: {
+    command: 'npx ng serve --port 4200',
+    url: 'http://localhost:4200',
+    reuseExistingServer: true,
+    timeout: 30000,
+  },
+});
