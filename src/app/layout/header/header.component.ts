@@ -109,6 +109,10 @@ export function formatCategory(cat: string): string {
       height: 24px;
       flex-shrink: 0;
     }
+
+    [data-theme='dark'] .header__logo-icon {
+      filter: invert(1);
+    }
     .header__nav {
       display: flex;
       gap: var(--space-sm);
