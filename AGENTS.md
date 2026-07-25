@@ -78,13 +78,17 @@ A subtask is complete ONLY if:
 5. **Escalate**: if 3 attempts exhausted OR visual judgment required → write a "🔴 NEEDS HUMAN REVIEW" block in `MEMORY.md`. Stop on that subtask.
 6. **Improve**: if same bug appears 2+ times, add a preventive rule to §2 above.
 
-## 6. Context management rule
+## 6. Shell efficiency rule
+
+- Always check the current working directory before running commands. Do not `cd` into a directory that is already the current working directory.
+
+## 8. Context management rule
 
 - One work session = at most one "Session" (second level) of `PLAN.md`.
 - Before context fills up, or at end of a Session, write handoff to `MEMORY.md` and stop.
 - Never attempt multiple Sessions in one context window.
 
-## 7. Git/PR conventions
+## 9. Git/PR conventions
 
 - **One branch per feature**: `feat/xxx` (e.g., `feat/product-grid`, `feat/auth`).
 - **Branch from the right base**: create each feature branch from `main` (or from the previous feature branch if features are sequential and not yet merged). This ensures each PR shows only its own diff.
@@ -96,11 +100,11 @@ A subtask is complete ONLY if:
      - Clear title following conventional commits.
      - Description covering: Changes, Verification (build/lint results), Related AC/Bonus references.
      - Base branch: `main` (or previous feature branch if sequential stack).
-  4. Wait for user review and merge confirmation.
+  4. Present the PR to the user for review — PR merging is done **only by the user**, never by the agent.
 - **No automatic merge** without explicit user confirmation.
 - **Never commit directly to `main`** — always use branches + PRs.
 - **After PR merge** to `main`, delete the feature branch locally and on remote.
 
-## 8. AI tool usage log
+## 10. AI tool usage log
 
 A running log is kept in `MEMORY.md` documenting where/how AI was used for scaffolding/debugging/refactoring and how output was validated — needed for the README paragraph required by AC 1.d.
