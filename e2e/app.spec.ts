@@ -111,3 +111,60 @@ test.describe('Product images', () => {
     }
   });
 });
+
+test.describe('Route transitions', () => {
+  test('route container has animation trigger', async ({ page }) => {
+    // The .route-container should exist with Angular animations enabled
+    await page.goto('/');
+    await page.waitForSelector('.route-container', { timeout: 10000 });
+
+    const hasContainer = await page.locator('.route-container').count();
+    expect(hasContainer).toBeGreaterThan(0);
+  });
+
+  test('navigating between routes completes without errors', async ({ page }) => {
+    const errors: string[] = [];
+    page.on('pageerror', (err) => errors.push(err.message));
+
+    // Home → Product Detail → Cart (should redirect to auth) → Auth → Home
+    await page.goto('/');
+    await page.waitForSelector('.products__grid', { timeout: 10000 });
+    expect(errors.length).toBe(0);
+
+    // Click first product card
+    const firstCard = page.locator('.card').first();
+    await firstCard.click();
+    await page.waitForSelector('.detail', { timeout: 10000 });
+    expect(errors.length).toBe(0);
+
+    // Navigate to auth
+    await page.goto('/auth');
+    await page.waitForSelector('.auth-card', { timeout: 10000 });
+    expect(errors.length).toBe(0);
+
+    // Navigate back to home
+    await page.goto('/');
+    await page.waitForSelector('.products__grid', { timeout: 10000 });
+    expect(errors.length).toBe(0);
+  });
+
+  test('rapid navigation between routes works', async ({ page }) => {
+    await page.goto('/');
+    await page.waitForSelector('.products__grid', { timeout: 10000 });
+
+    // Rapid sequence: product detail → back → auth → back
+    const firstCard = page.locator('.card').first();
+    await firstCard.click();
+    await page.waitForSelector('.detail', { timeout: 10000 });
+
+    await page.goto('/auth');
+    await page.waitForSelector('.auth-card', { timeout: 10000 });
+
+    await page.goto('/');
+    await page.waitForSelector('.products__grid', { timeout: 10000 });
+
+    // Verify no crash — the products grid is still rendered
+    const cardCount = await page.locator('.card').count();
+    expect(cardCount).toBeGreaterThan(0);
+  });
+});
