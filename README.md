@@ -29,7 +29,7 @@ git clone https://github.com/SuperPorz/qubica-store.git
 cd qubica-store
 
 # Install dependencies
-npm install
+npm install  (in case of issues, try: 'npm install --legacy-peer-deps')
 
 # Start the development server
 ng serve
